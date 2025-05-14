@@ -44,7 +44,7 @@ def ingest(data_folder: str):
     )
     db.session.commit()
 
-    # ─── 3) Ingest Regional Data ──────────────────────────────
+    # 3) Ingest Regional Data 
     regional_fp = os.path.join(data_folder, "Regional_news.csv")
     df_regional = read_regional_news(regional_fp)
     for col in [
