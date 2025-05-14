@@ -98,9 +98,8 @@ def validate_regional_data(df: pd.DataFrame) -> pd.DataFrame:
         raise ValueError("num_words must be float")
     if (df["num_words"] < 0).any():
         raise ValueError("num_words contains negative values")
-    
-    return df
 
+    return df
 
 
 def validate_global_stats(df: pd.DataFrame) -> pd.DataFrame:
@@ -137,38 +136,4 @@ def validate_global_stats(df: pd.DataFrame) -> pd.DataFrame:
     if (df["country"].str.strip() == "").any():
         raise ValueError("Empty country value found")
 
-    return df
-
-
-def validate_topic_hierarchy(df: pd.DataFrame) -> pd.DataFrame:
-    """
-    For every '<level>_qcode' column in df, ensure there's a
-    '<level>_label' column.  If it’s missing, create it filled with None.
-    """
-    # find all qcode columns
-    qcode_cols = [c for c in df.columns if c.endswith('_qcode')]
-
-    for qcol in qcode_cols:
-        label_col = qcol.replace('_qcode', '_label')
-        if label_col not in df.columns:
-            # create the missing label column with nulls
-            df[label_col] = pd.NA
-
-    return df
-
-
-def validate_news_topics(df: pd.DataFrame) -> pd.DataFrame:
-    """
-    Ensure the metrics DF has the expected columns and sensible types.
-    """
-    required = ['level1_qcode','NUTS_ID','n_articles','avg_sentiment',
-                'start_month','end_month']
-    missing = set(required) - set(df.columns)
-    if missing:
-        raise ValueError(f"News topics missing columns: {missing}")
-    # Convert dates if needed:
-    df['start_month'] = pd.to_datetime(df['start_month'], errors='coerce')
-    df['end_month']   = pd.to_datetime(df['end_month'],   errors='coerce')
-    df[['n_articles','avg_sentiment']] = df[['n_articles','avg_sentiment']]\
-        .apply(pd.to_numeric, errors='coerce').fillna(0)
     return df

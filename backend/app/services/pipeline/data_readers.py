@@ -4,7 +4,7 @@ import pandas as pd
 
 def read_region_names(path: str) -> pd.DataFrame:
     """
-    Reads the region names file, whether it's a TSV or an Excel workbook.
+    Reads the region names file Excel workbook.
     Expects columns: Region, ROR.NAME, Country
     """
     ext = os.path.splitext(path)[1].lower()
@@ -56,8 +56,7 @@ def read_regional_news(path: str) -> pd.DataFrame:
 def read_global_stats(path: str) -> pd.DataFrame:
     """
     Reads only the six columns we care about from the semicolon-delimited
-    global_stats file, using the Python engine to cope with the extra
-    row-id column.
+    global_stats file.
     """
     return pd.read_csv(
         path,
