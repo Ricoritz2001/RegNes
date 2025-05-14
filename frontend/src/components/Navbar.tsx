@@ -1,14 +1,11 @@
-import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
 export default function Navbar() {
-  const [activeLink, setActiveLink] = useState('/info');
-
   const navLinks = [
-    { to: '/info',   label: 'About'  },
-    { to: '/heatmap',  label: 'Heatmap'},
-    { to: '/stats',  label: 'Stats'  },
-    { to: '/charts', label: 'Charts' },
+    { to: '/info',    label: 'About'   },
+    { to: '/heatmap', label: 'Heatmap' },
+    { to: '/stats',   label: 'Stats'   },
+    { to: '/charts',  label: 'Charts'  },
   ];
 
   return (
@@ -27,7 +24,6 @@ export default function Navbar() {
               key={link.to}
               to={link.to}
               end
-              onClick={() => setActiveLink(link.to)}
               className={({ isActive }) =>
                 [
                   'relative text-sm font-medium transition',

@@ -1,5 +1,3 @@
-// src/pages/StatsPage.tsx
-import React from 'react'
 import { useStatus } from '../hooks/useStatus'
 
 export default function StatsPage() {

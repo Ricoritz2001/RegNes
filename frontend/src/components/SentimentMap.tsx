@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
+// src/pages/SentimentMap.tsx
+import { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, GeoJSON } from 'react-leaflet';
 import { fetchRegionsWithSentiment } from '../services/api';
 import * as d3 from 'd3';
+import 'leaflet/dist/leaflet.css'; 
 
 const METRIC_OPTIONS = [
   { label: 'Sentiment', value: 'sentiment_mean' },
@@ -10,7 +12,7 @@ const METRIC_OPTIONS = [
 ];
 
 export default function SentimentMap() {
-  const [geoData, setGeoData] = useState<GeoJSON.Feature[] | null>(null);
+  const [geoData, setGeoData] = useState<GeoJSON.Feature[]>([]);
   const [mapDate, setMapDate] = useState<string>('');
   const [selectedMetric, setSelectedMetric] = useState<string>('sentiment_mean');
 
@@ -69,10 +71,13 @@ export default function SentimentMap() {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             attribution="&copy; OpenStreetMap contributors"
           />
-          {geoData && (
+          {geoData.length > 0 && (
             <GeoJSON
-              key={selectedMetric} // orces re-render when metric changes
-              data={{ type: 'FeatureCollection', features: geoData }}
+              key={selectedMetric} // forces re-render when metric changes
+              data={{
+                type: 'FeatureCollection',
+                features: geoData
+              } as GeoJSON.FeatureCollection}
               style={styleRegion}
               onEachFeature={(feature, layer) => {
                 const val = feature.properties.value ?? 0;

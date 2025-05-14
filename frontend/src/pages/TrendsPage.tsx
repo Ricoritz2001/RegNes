@@ -6,31 +6,36 @@ import { getRegions, Region } from '../services/api'
 import { TrendChart } from '../components/TrendChart'
 
 type Country = 'Deutschland' | 'Schweiz' | 'Österreich'
-const ALL_COUNTRIES: Country[] = ['Deutschland','Schweiz','Österreich']
+const ALL_COUNTRIES: Country[] = ['Deutschland', 'Schweiz', 'Österreich']
 
 const METRIC_OPTIONS: { label: string; value: Indicator }[] = [
-  { label: 'Sentiment',  value: 'sentiment' },
-  { label: 'Happiness',  value: 'happiness' },
-  { label: 'Valenz',     value: 'valenz'    },
+  { label: 'Sentiment', value: 'sentiment' },
+  { label: 'Happiness', value: 'happiness' },
+  { label: 'Valenz', value: 'valenz' },
 ]
 
+const countryOptions = ALL_COUNTRIES.map((c) => ({
+  label: c,
+  value: c as Country,
+}))
+
 export const TrendsPage: React.FC = () => {
-  // Global chart state (always av_sents)
+  // Global chart state
   const [visibleCountries, setVisibleCountries] = useState<Country[]>(ALL_COUNTRIES)
   const { labels: gLabels, datasets: gDatasets } = useTrends({
     indicator: 'sentiment',
     countries: visibleCountries,
-    regions:   undefined
+    regions: undefined,
   })
 
   // Regional chart state
-  const [regions, setRegions]                   = useState<Region[]>([])
-  const [selectedRegion, setSelectedRegion]     = useState<number|undefined>()
-  const [regionMetric,   setRegionMetric]       = useState<Indicator>('sentiment')
+  const [regions, setRegions] = useState<Region[]>([])
+  const [selectedRegion, setSelectedRegion] = useState<number | undefined>()
+  const [regionMetric, setRegionMetric] = useState<Indicator>('sentiment')
   const { labels: rLabels, datasets: rDatasets } = useTrends({
     indicator: regionMetric,
     countries: undefined,
-    regions:   selectedRegion ? [selectedRegion] : []
+    regions: selectedRegion ? [selectedRegion] : [],
   })
 
   useEffect(() => {
@@ -43,12 +48,12 @@ export const TrendsPage: React.FC = () => {
         {/* Global Sentiment */}
         <Card title="Global Sentiment" className="shadow-lg">
           <div className="mb-4">
-            <Select<Country>
+            <Select
               mode="multiple"
               allowClear
-              options={ALL_COUNTRIES.map(c => ({ label: c, value: c }))}
+              options={countryOptions}
               value={visibleCountries}
-              onChange={vals => setVisibleCountries(vals as Country[])}
+              onChange={(vals: Country[]) => setVisibleCountries(vals)}
               style={{ width: '100%' }}
             />
           </div>
@@ -71,12 +76,12 @@ export const TrendsPage: React.FC = () => {
               style={{ width: '100%', maxWidth: 240 }}
             />
             <Select<number>
-              options={regions.map(r => ({
+              options={regions.map((r) => ({
                 label: r.region_name,
-                value: r.region_id
+                value: r.region_id,
               }))}
               value={selectedRegion}
-              onChange={val => setSelectedRegion(val)}
+              onChange={(val) => setSelectedRegion(val)}
               placeholder="Select region"
               style={{ width: '100%', maxWidth: 240 }}
             />

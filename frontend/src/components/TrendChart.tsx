@@ -1,6 +1,5 @@
-// src/components/TrendChart.tsx
 import React from 'react'
-import { Line } from 'react-chartjs-2'
+import { Chart } from 'react-chartjs-2'
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -27,22 +26,23 @@ interface TrendChartProps {
   labels:   string[]
   datasets: ChartDataset<'line'>[]
   title?:   string
-  height?:  number  // optional pixel height
+  height?:  number
 }
 
 export const TrendChart: React.FC<TrendChartProps> = ({
   labels,
   datasets,
   title,
-  height = 300    // default height
+  height = 300
 }) => {
   const data = { labels, datasets }
+
   const options = {
-    responsive:      true,
-    maintainAspectRatio: false as const,  // allow fixed height
+    responsive: true,
+    maintainAspectRatio: false as const,
     plugins: {
       legend: { position: 'top' as const },
-      title:  { display: !!title, text: title }
+      title: { display: !!title, text: title }
     },
     scales: {
       x: { title: { display: true, text: 'Date' } },
@@ -50,5 +50,5 @@ export const TrendChart: React.FC<TrendChartProps> = ({
     }
   }
 
-  return <Line data={data} options={options} height={height} />
+  return <Chart type="line" data={data} options={options} height={height} />
 }

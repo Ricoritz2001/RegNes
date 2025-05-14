@@ -1,5 +1,3 @@
-// src/pages/HeatmapPage.tsx
-import React from 'react';
 import SentimentMap from '../components/SentimentMap';
 
 export default function HeatmapPage() {

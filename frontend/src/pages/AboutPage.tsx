@@ -1,5 +1,3 @@
-// src/pages/AboutPage.tsx
-import React from 'react';
 
 const meanItems = [
   {
@@ -41,7 +39,7 @@ export default function AboutPage() {
             media outlets (current numbers below). Notably, newspapers and radio stations
             (sources) may have multiple channels. The set of media sources includes
             regional and national outlets from the German-speaking world (Germany,
-            Austria, Liechtenstein, Luxembourg, Switzerland). In the dashboard below,
+            Austria, Liechtenstein, Luxembourg, Switzerland). In the dashboard,
             only regional news are considered—national and international news sources
             are not presented. Geolocation of news articles is based on the news
             channels’ locations (e.g., editorial desks) and the regions they target.
