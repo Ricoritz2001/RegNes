@@ -85,7 +85,7 @@ def ingest(data_folder: str):
     db.session.bulk_insert_mappings(RegionalData, regional_records)
     db.session.commit()
 
-    # ─── 4) Ingest Global Stats ───────────────────────────────
+    # Ingest Global Stats 
     global_fp = os.path.join(data_folder, "global.stats.csv")
     df_global = read_global_stats(global_fp)
     df_global = df_global.rename(columns={

@@ -22,17 +22,17 @@ def generate_regions_geojson() -> str:
     6. Save the result as GeoJSON and return it as a JSON string.
     """
 
-    # 1) Locate shapefile in the configured raw shapefile directory
+    # Locate shapefile in the configured raw shapefile directory
     shp_dir = current_app.config["RAW_SHP_DIR"]
     shp_files = [f for f in os.listdir(shp_dir) if f.lower().endswith(".shp")]
     if not shp_files:
         raise FileNotFoundError(f"No .shp file found in {shp_dir}")
     shp_path = os.path.join(shp_dir, shp_files[0])
 
-    # 2) Read shapefile into a GeoDataFrame
+    #  Read shapefile into a GeoDataFrame
     gdf = gpd.read_file(shp_path)
 
-    # 2b) Ensure GeoDataFrame is using WGS84 (EPSG:4326) for lat/lon compatibility
+    #  Ensure GeoDataFrame is using WGS84 (EPSG:4326) for lat/lon compatibility
     if gdf.crs is None:
         raise ValueError("Shapefile has no coordinate reference system (CRS) defined.")
     if gdf.crs.to_epsg() != 4326:
