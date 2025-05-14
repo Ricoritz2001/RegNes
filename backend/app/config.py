@@ -1,34 +1,31 @@
-from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy.orm import DeclarativeBase
 
-class Config(object):
-    TESTING = False
+import os
+
+BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+
+
+class Config:
+    """Base config shared across all environments."""
+    SECRET_KEY = os.environ.get('SECRET_KEY', 'dev')
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+    RAW_SHP_DIR = os.path.join(BASE_DIR, 'data', 'raw', 'shapefiles')
+    PROCESSED_GEOJSON = os.path.join(BASE_DIR, 'data', 'processed', 
+                                     'regions_with_sentiment.geojson')
+
 
 class ProductionConfig(Config):
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///app.db'
-    
+    """Production-specific configuration."""
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL', 
+                                             'sqlite:///instance/flaskr.sqlite')
+
+
 class DevelopmentConfig(Config):
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///dev.db'
+    """Development environment config."""
+    DEBUG = True
+    SQLALCHEMY_DATABASE_URI = f"sqlite:///{os.path.join(BASE_DIR, '..', 'instance', 'flaskr.sqlite')}"
 
 class TestingConfig(Config):
+    """Testing-specific config."""
     TESTING = True
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///dev.db'
- 
-class Base(DeclarativeBase):
-    pass
-
-db = SQLAlchemy(model_class=Base)
-
-#Creates the application
-app = Flask(__name__)
-#Configures SQLite database, relative to the application instance folder
-app.config.from_object(DevelopmentConfig)
-#initialize the app with the extension
-db.init_app(app)
-
-
-
-
-
-
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///instance/test_flaskr.sqlite'
