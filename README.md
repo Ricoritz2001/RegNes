@@ -22,7 +22,7 @@ source env/bin/activate  # or use `env\Scripts\activate` on Windows
 pip install -r requirements.txt
 mkdir instance
 flask db upgrade
-flask ingest-data app/raw/data
+flask ingest-data app/data/raw
 flask run
 ```
 
