@@ -3,7 +3,7 @@ import { useStatus } from '../hooks/useStatus'
 export default function StatsPage() {
   const { data: status, loading, error } = useStatus()
 
-  // loading / error states
+  
   if (loading) {
     return (
       <section className="min-h-screen bg-gradient-to-r from-cyan-700 via-cyan-500 to-blue-400 flex items-center justify-center">

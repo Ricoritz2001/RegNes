@@ -27,7 +27,7 @@ export default function AboutPage() {
           About This Dashboard
         </h1>
 
-        {/* General Information (full width) */}
+        {/* General Information */}
         <div className="bg-white p-6 rounded-lg shadow-md">
           <h2 className="text-2xl font-semibold mb-4 text-gray-800">
             General Information
@@ -46,7 +46,7 @@ export default function AboutPage() {
           </p>
         </div>
 
-        {/* Three “Mean” Boxes */}
+       
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {meanItems.map(({ title, text }) => (
             <div

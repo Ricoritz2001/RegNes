@@ -1,4 +1,3 @@
-// src/hooks/useTrends.ts
 import { useState, useEffect } from 'react'
 import { ChartDataset } from 'chart.js'
 import { getGlobalTrends, getRegionalTrends } from '../services/api'
@@ -49,7 +48,7 @@ export function useTrends({
         )
       }
 
-      // REGIONAL (unchanged)
+      // REGIONAL
       else if (regions && regions.length) {
         const raw = await getRegionalTrends(regions)
         const dates = Array.from(new Set(raw.map(r => r.date))).sort()

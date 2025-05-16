@@ -1,4 +1,3 @@
-// src/pages/SentimentMap.tsx
 import { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, GeoJSON } from 'react-leaflet';
 import { fetchRegionsWithSentiment } from '../services/api';
@@ -41,13 +40,22 @@ export default function SentimentMap() {
 
   return (
     <div className="space-y-4">
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <div className="text-sm text-gray-600">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between text-sm text-gray-600 space-y-1 sm:space-y-0">
+        <div>
           Showing data for: <strong>{mapDate}</strong>
         </div>
+        <div className="text-gray-500">
+          Map tiles &copy; <a
+            href="https://www.openstreetmap.org/copyright"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline"
+          >
+            OpenStreetMap
+          </a> contributors
+        </div>
         <select
-          className="border px-3 py-1 rounded"
+          className="border px-3 py-1 rounded sm:ml-4"
           value={selectedMetric}
           onChange={(e) => setSelectedMetric(e.target.value)}
         >
@@ -66,14 +74,14 @@ export default function SentimentMap() {
           zoom={6}
           scrollWheelZoom={true}
           style={{ width: '100%', height: '100%' }}
+          attributionControl={false} 
         >
           <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            attribution="&copy; OpenStreetMap contributors"
           />
           {geoData.length > 0 && (
             <GeoJSON
-              key={selectedMetric} // forces re-render when metric changes
+              key={selectedMetric}
               data={{
                 type: 'FeatureCollection',
                 features: geoData

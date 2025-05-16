@@ -1,4 +1,3 @@
-// src/pages/TrendsPage.tsx
 import React, { useState, useEffect } from 'react'
 import { Card, Select } from 'antd'
 import { useTrends, Indicator } from '../hooks/useTrends'
@@ -20,7 +19,7 @@ const countryOptions = ALL_COUNTRIES.map((c) => ({
 }))
 
 export const TrendsPage: React.FC = () => {
-  // Global chart state
+ 
   const [visibleCountries, setVisibleCountries] = useState<Country[]>(ALL_COUNTRIES)
   const { labels: gLabels, datasets: gDatasets } = useTrends({
     indicator: 'sentiment',
@@ -28,7 +27,6 @@ export const TrendsPage: React.FC = () => {
     regions: undefined,
   })
 
-  // Regional chart state
   const [regions, setRegions] = useState<Region[]>([])
   const [selectedRegion, setSelectedRegion] = useState<number | undefined>()
   const [regionMetric, setRegionMetric] = useState<Indicator>('sentiment')
@@ -45,7 +43,7 @@ export const TrendsPage: React.FC = () => {
   return (
     <div className="pt-20 px-8">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {/* Global Sentiment */}
+        
         <Card title="Global Sentiment" className="shadow-lg">
           <div className="mb-4">
             <Select
@@ -66,7 +64,7 @@ export const TrendsPage: React.FC = () => {
           </div>
         </Card>
 
-        {/* Regional Trends */}
+
         <Card title="Regional Trends" className="shadow-lg">
           <div className="mb-4 flex flex-col md:flex-row gap-4">
             <Select<Indicator>

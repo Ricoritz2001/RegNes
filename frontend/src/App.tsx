@@ -10,14 +10,14 @@ import HeatmapPage from './pages/HeatmapPage';
 function App() {
   return (
     <BrowserRouter>
-      {/* Navbar must be inside BrowserRouter for NavLink to work */}
+      
       <Navbar />
 
       <Routes>
         {/* Redirect “/” to “/info” */}
         <Route path="/" element={<Navigate to="/info" replace />} />
 
-        {/* Mount your AboutPage at /info */}
+        {/* Mount AboutPage at /info */}
         <Route path="info" element={<AboutPage />} />
 
         <Route path="stats" element={<StatsPage />} />

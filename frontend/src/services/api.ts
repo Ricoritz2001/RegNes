@@ -1,22 +1,15 @@
-// src/services/api.ts
 import axios from 'axios'
 
-//
-// — Supported metrics —
-//
+// Supported metrics 
 export type Indicator = 'sentiment' | 'happiness' | 'valenz'
 
-//
-// — Axios instance —
-//
+// Axios instance 
 const api = axios.create({
   baseURL: '/api',
   timeout: 10000,
 })
 
-//
-// — Status endpoint —
-//
+// Status endpoint 
 export interface StatusResponse {
   last_update:     string | null
   total_news:      number
@@ -29,21 +22,17 @@ export function getStatus(): Promise<StatusResponse> {
   return api.get<StatusResponse>('/status').then(r => r.data)
 }
 
-//
-// — Regions list —
-//
+// regions
 export interface Region {
   region_id:   number
   region_name: string
 }
 export function getRegions(): Promise<Region[]> {
-  // Updated to hit the /trends/regions endpoint
+  
   return api.get<Region[]>('/trends/regions').then(r => r.data)
 }
 
-//
-// — Global trends —
-//
+// Global trends
 export interface GlobalTrend {
   date:      string   
   country:   string
@@ -69,9 +58,7 @@ export function getGlobalTrends(
     .then(r => r.data)
 }
 
-//
-// — Regional trends —
-//
+// Regional trends 
 export interface RegionalTrend {
   date:        string   
   region_id:   number
